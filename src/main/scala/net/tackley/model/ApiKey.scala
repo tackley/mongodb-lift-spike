@@ -4,18 +4,21 @@
 
 package net.tackley.model
 
-import _root_.net.liftweb.mapper._
-import _root_.net.liftweb.util._
-import _root_.net.liftweb.common._
-import net.liftweb.mongodb.{MongoDocumentMeta, MongoDocument}
-import java.util.Date
+import net.liftweb.mongodb.record.{MongoMetaRecord, MongoId, MongoRecord}
+import net.liftweb.record.field.{OptionalDateTimeField, StringField}
 
-case class ApiKey(_id: String, username: String, tier: String, lastLogin: Option[Date]) extends MongoDocument[ApiKey] {
+class ApiKey extends MongoRecord[ApiKey] with MongoId[ApiKey] {
+
+//(_id: String, username: String, tier: String, lastLogin: Option[Date]) extends MongoDocument[ApiKey] {
+
+  object username extends StringField(this, 20)
+  object tier extends StringField(this, 10)
+  object lastLogin extends OptionalDateTimeField(this)
 
   def meta = ApiKey
 
 
 }
-object ApiKey extends MongoDocumentMeta[ApiKey] {
+object ApiKey extends ApiKey with MongoMetaRecord[ApiKey] {
 
 }

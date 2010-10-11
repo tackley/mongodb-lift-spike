@@ -10,8 +10,11 @@ class Hack {
   def buttons(xhtml: NodeSeq): NodeSeq = {
     SHtml.submit("create", () => {
       println("creating!")
-      val apiKey = ApiKey(ObjectId.get.toString, "tackers2", "internal", Some(new Date))
+      val apiKey = new ApiKey
+      apiKey.username("tackers4").tier("free").lastLogin.setFromAny(new Date)
       apiKey.save
+      //val apiKey = ApiKey(ObjectId.get.toString, "tackers2", "internal", Some(new Date))
+      //apiKey.save
       println("saved!")
     })
   }
